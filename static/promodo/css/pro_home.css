@@ -1,0 +1,100 @@
+body{
+    display: grid;
+    place-content: center;
+    background-color: #F5F4FF;
+    color: #544FCC;
+}
+#main-div{
+    width: 400px;
+    height: 470px;
+    border: solid;
+    border-width: 2px;
+    background-color: #E0DEFF;
+    border-color: #6C63FF;
+    border-radius: 10px;
+
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: repeat(3,auto);
+}
+#promodo-img{
+    grid-row: 1;
+    width: 270px;
+    height: 270px;
+    
+    border: solid;
+    border-width: 1px;
+    border-radius: 10px;
+
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+}
+#text-div{
+    grid-row: 2;
+    margin-top: -35px;
+    text-align: center;
+}
+#time-promodo{
+    width: 35px;
+    background-color: #F5F4FF;
+    
+    border: solid;
+    border-width: 2px;
+    border-radius: 5px;
+    border-color: #6C63FF;
+}
+#eval-time{
+    margin-top: 10px;
+    opacity: 0.6;
+}
+#start-button{
+    grid-row: 3;
+
+    background-color: #CBC9FF;
+
+    border-top: solid;
+    border-color: #6C63FF;
+    border-top-width: 2px;
+    border-bottom-width: 0px;
+    border-left-width: 0px;
+    border-right-width: 0px;
+    
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+#start-button:hover{
+    background-color: #C0BEFF;
+}
+#skip-button{
+    grid-row: 3;
+    
+    background-color: #CBC9FF;
+
+    border-top: solid;
+    border-color: #6C63FF;
+    border-top-width: 2px;
+    border-bottom-width: 0px;
+    border-left-width: 0px;
+    border-right-width: 0px;
+    
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+#skip-button:hover{
+    background-color: #C0BEFF;
+}
+#motivate-text {
+    max-width: 350px;
+    opacity: 0.75;
+    word-wrap: break-word;
+    white-space: normal;
+    display: block; /* Makes it behave like a div */
+    margin: 0 auto;  /* Center the text block inside the parent */
+    text-align: center;
+}
+

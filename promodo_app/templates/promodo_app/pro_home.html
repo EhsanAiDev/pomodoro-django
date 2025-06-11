@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promodo</title>
+    <link rel="stylesheet" href="{% static 'promodo/css/pro_home.css' %}">
+</head>
+<body>
+    <h1 style="text-align: center; margin: 5px;">Promodo</h1>
+    <div id="main-div">
+        <img id="promodo-img" src="{% static 'promodo/images/studying.png' %}">
+        
+        <div id="text-div">
+            <h4 style="margin-top:3px;margin-bottom: 8px;">Select your promoda:</h4>
+            <div id="user-input">
+              <input type="number" id="time-promodo" inputmode="numeric" value="1" min="1"  max="10" step="1" oninput="change_promodos()" onkeydown="return false;" required>                  
+              <span> * Promodo</span>
+            </div>
+            <div id="eval-time">
+                <div>
+                    <span id="promodo-len-work">1</span><span> * 25 = </span><span id="work-time">25</span><span> min work</span>
+                </div>
+                <div>
+                    <span id="promodo-len-rest">1</span><span> * 5 = </span><span id="rest-time">5</span><span> min rest</span>
+                </div>
+            </div>
+        </div>
+
+        <button id='start-button' onclick="start()">Start</button>
+    </div>
+</body>
+
+<script src="{% static 'promodo/js/pro_home.js' %}"></script>
+</html>

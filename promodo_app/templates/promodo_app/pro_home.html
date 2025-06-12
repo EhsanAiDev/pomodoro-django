@@ -8,7 +8,13 @@
     <link rel="stylesheet" href="{% static 'promodo/css/pro_home.css' %}">
 </head>
 <body>
-    <h1 style="text-align: center; margin: 5px;">Promodo</h1>
+    
+    <h1 style="text-align: center; margin: 5px;margin-bottom: 10px;">Promodo</h1>
+    <div id="score" style="display: flex; justify-content: space-between;">
+        <span id="done-promodos">Done</span>
+        <span id="left-promodos" style="display: none;">Left</span>
+    </div>
+
     <div id="main-div">
         <img id="promodo-img" src="{% static 'promodo/images/studying.png' %}">
         
@@ -27,7 +33,6 @@
                 </div>
             </div>
         </div>
-
         <button id='start-button' onclick="start()">Start</button>
     </div>
 </body>

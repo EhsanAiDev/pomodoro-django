@@ -1,6 +1,30 @@
-document.getElementById("time-promodo").value = 1;
-promodoTime = document.getElementById("time-promodo").value; // defualt value if the eval_promodo is not called by user
+class CookieManager{
+    constructor(cookies){
+        this.cookies = cookies;
+        this.cookie_name = "promodoDone";
+        let regex = new RegExp(`${this.cookie_name}=\\d+`, 'i');
 
+        if (regex.test(this.cookies)){
+            let cookies = this.cookies.split(';');
+            
+            for (let i = 0; i < cookies.length; i++) {
+                let c = cookies[i].trim();
+                if (c.startsWith(this.cookie_name + "=")) {
+                    c = c.substring(this.cookie_name.length + 1);
+                    this.donePromodos = parseInt(c);
+                }
+            }
+        }else{
+            document.cookie = `${this.cookie_name}=0;`;
+            this.donePromodos = 0;
+        }
+    }
+
+    increaseValue(value){
+        this.donePromodos++ ;
+        document.cookie=`${this.cookie_name}=${this.donePromodos};` ;
+    }
+}
 
 
 function change_promodos() {
@@ -18,21 +42,21 @@ function change_promodos() {
 function start() {
     promodos = [];
     index = 0;
-
+    
     for (i = 0; i < promodoTime; i++) {
         promodos.push("Working");
         promodos.push("Resting");
     }
-
+    
     const mainDiv = document.getElementById("main-div");
     const textDiv = document.getElementById("text-div");
     const startButton = document.getElementById("start-button");
-
+    
     textDiv.innerHTML = '';
     textDiv.innerHTML = `
     <span id='status-text'></span><br>
     <span id='timer'></span><br><br>
-
+    
     <span id='motivate-text'></span>
     `
     const skipButton = document.createElement("button");
@@ -45,12 +69,14 @@ function start() {
     
     mainDiv.removeChild(startButton);
     mainDiv.appendChild(skipButton);
-
+    
+    promodosLeft = promodos.length / 2 ;
     timer(promodos,index);
 }
 
 
 function timer(p , index) {
+
     if (index >= p.length) {
         const mainDiv = document.getElementById("main-div");
         const textDiv = document.getElementById("text-div");
@@ -88,15 +114,26 @@ function timer(p , index) {
         mainDiv.appendChild(startButton)
         
 
+        leftPromods = document.getElementById("left-promodos") 
+        leftPromods.style.display = "none"
+
         audio = new Audio("/static/promodo/audio/promodo-done-sound-effect.mp3");
         audio.play();
+
                 
-        console.log("the promodo is done");
         return;
     } else {
         let status_image = document.getElementById("promodo-img")
         let timeLeft = p[index] === 'Working' ? 1500 : 300;
         status_image.src = (p[index] === "Working") ? "/static/promodo/images/working.png" : "/static/promodo/images/resting.png"
+        if(p[index] === "Resting" ) userCookie.increaseValue(); 
+        if(p[index] === "Resting" ) promodosLeft--; 
+
+        leftPromods = document.getElementById("left-promodos") 
+        leftPromods.style.display = "inline"
+        leftPromods.textContent = `Promodos Left: ${promodosLeft}`
+
+
 
         function updateTimer() {
             const minutes = Math.floor(timeLeft / 60);
@@ -161,8 +198,19 @@ function randomMotivateText(phase, status_image){
 function skip() {
     audio = new Audio("/static/promodo/audio/skip-sound-effect.mp3");
     audio.play();
+    document.getElementById("done-promodos").textContent = `Pomodoro Score: ${userCookie.donePromodos}`;
+
     
     index++ ; 
     clearInterval(countdown);
     timer(promodos , index)
 }
+
+
+document.getElementById("time-promodo").value = 1;
+promodoTime = document.getElementById("time-promodo").value; // defualt value if the eval_promodo is not called by user
+userCookie = new CookieManager(document.cookie);
+document.getElementById("done-promodos").textContent = `Pomodoro Score: ${userCookie.donePromodos}`;
+
+
+

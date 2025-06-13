@@ -1,0 +1,70 @@
+body {
+    display: grid;
+    place-content: center;
+    background-color: #F5F4FF;
+    color: #544FCC;
+}
+
+#main-div {
+    width: 400px;
+    height: 470px;
+    border: 2px solid #6C63FF;
+    background-color: #E0DEFF;
+    border-radius: 10px 10px 10px 10px;
+
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: repeat(3, auto);
+}
+
+#pomodoro-img {
+    grid-row: 1;
+    width: 270px;
+    height: 270px;
+    border: 1px solid;
+    border-radius: 10px;
+    margin: 5px auto 0 auto;
+}
+
+#text-div {
+    grid-row: 2;
+    margin-top: -35px;
+    text-align: center;
+}
+
+#time-pomodoro {
+    width: 35px;
+    background-color: #F5F4FF;
+    border: 2px solid #6C63FF;
+    border-radius: 5px;
+}
+
+#eval-time {
+    margin-top: 10px;
+    opacity: 0.6;
+}
+
+#start-button, #skip-button {
+    grid-row: 3;
+    background-color: #CBC9FF;
+    border-top: 2px solid #6C63FF;
+    border-bottom: 0;
+    border-left: 0;
+    border-right: 0;
+    border-radius: 0 0 10px 10px;
+    cursor: pointer;
+}
+
+#start-button:hover, #skip-button:hover {
+    background-color: #C0BEFF;
+}
+
+#motivate-text {
+    max-width: 350px;
+    opacity: 0.75;
+    word-wrap: break-word;
+    white-space: normal;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+}

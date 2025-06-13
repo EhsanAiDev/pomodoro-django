@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro</title>
+    <link rel="stylesheet" href="{% static 'pomodoro/css/pomo_home.css' %}">
+</head>
+<body>
+    
+    <h1 style="text-align: center; margin: 5px;margin-bottom: 10px;">Pomodoro</h1>
+    <div id="score" style="display: flex; justify-content: space-between;">
+        <span id="done-pomodoros">Done</span>
+        <span id="left-pomodoros" style="display: none;">Left</span>
+    </div>
+
+    <div id="main-div">
+        <img id="pomodoro-img" src="{% static 'pomodoro/images/studying.png' %}">
+        
+        <div id="text-div">
+            <h4 style="margin-top:3px;margin-bottom: 8px;">Select your pomodoro:</h4>
+            <div id="user-input">
+              <input type="number" id="time-pomodoro" inputmode="numeric" value="1" min="1"  max="10" step="1" oninput="change_pomodoros()" onkeydown="return false;" required>                  
+              <span> * Pomodoro</span>
+            </div>
+            <div id="eval-time">
+                <div>
+                    <span id="pomodoro-len-work">1</span><span> * 25 = </span><span id="work-time">25</span><span> min work</span>
+                </div>
+                <div>
+                    <span id="pomodoro-len-rest">1</span><span> * 5 = </span><span id="rest-time">5</span><span> min rest</span>
+                </div>
+            </div>
+        </div>
+        <button id='start-button' onclick="start()">Start</button>
+    </div>
+</body>
+
+<script src="{% static 'pomodoro/js/pomo_home.js' %}"></script>
+</html>

@@ -44,10 +44,17 @@ body {
     opacity: 0.6;
 }
 
-#start-button, #skip-button {
+#buttons-div{
     grid-row: 3;
+}
+
+#start-button{
     background-color: #CBC9FF;
     border-top: 2px solid #6C63FF;
+    
+    width: 100%;
+    height: 100%;
+
     border-bottom: 0;
     border-left: 0;
     border-right: 0;
@@ -55,7 +62,41 @@ body {
     cursor: pointer;
 }
 
-#start-button:hover, #skip-button:hover {
+#skip-button{
+    background-color: #CBC9FF;
+    border-top: 2px solid #6C63FF;
+    
+    width: 200px;
+    height: 100%;
+
+    border-bottom: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom-left-radius: 10px;
+
+    border-right: solid;
+    border-right-width: 2px;
+    border-right-color: #6C63FF;
+
+    cursor: pointer;
+}
+#pause-button, #resume-button{
+    background-color: #CBC9FF;
+    border-top: 2px solid #6C63FF;
+    
+    width: 200px;
+    height: 100%;
+
+    border-bottom: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom-right-radius: 10px;
+
+    cursor: pointer;
+}
+
+
+#start-button:hover, #skip-button:hover, #pause-button:hover, #resume-button:hover {
     background-color: #C0BEFF;
 }
 

@@ -39,15 +39,17 @@ function change_pomodoros() {
 
 function start() {
     pomodoros = [];
+    pomodoroTime = document.getElementById("time-pomodoro").value;
     index = 0;
+    is_pause = false;
+
 
     for (let i = 0; i < pomodoroTime; i++) {
         pomodoros.push("Working");
         pomodoros.push("Resting");
     }
-
-    const mainDiv = document.getElementById("main-div");
     const textDiv = document.getElementById("text-div");
+    const buttonsDiv = document.getElementById("buttons-div");
     const startButton = document.getElementById("start-button");
 
     textDiv.innerHTML = `
@@ -55,14 +57,25 @@ function start() {
         <span id='timer'></span><br><br>
         <span id='motivate-text'></span>
     `;
+    buttonsDiv.removeChild(startButton);
+
 
     const skipButton = document.createElement("button");
     skipButton.id = 'skip-button';
     skipButton.textContent = "Skip";
     skipButton.addEventListener('click', skip);
 
-    mainDiv.removeChild(startButton);
-    mainDiv.appendChild(skipButton);
+    const pauseButton = document.createElement("button");
+    pauseButton.id = 'pause-button';
+    pauseButton.textContent = "Pause";
+    pauseButton.addEventListener('click', pause);
+
+    buttonsDiv.appendChild(skipButton);
+    buttonsDiv.appendChild(pauseButton);
+
+
+    buttonsDiv.style.display = "grid";
+    buttonsDiv.style.gridTemplateColumns = "auto auto"
 
     pomodorosLeft = pomodoros.length / 2;
     timer(pomodoros, index);
@@ -87,20 +100,22 @@ function timer(p, index) {
         leftPomodoros.textContent = `Pomodoros Left: ${pomodorosLeft}`;
 
         function updateTimer() {
-            const minutes = Math.floor(timeLeft / 60);
-            const seconds = timeLeft % 60;
-            const timeShow = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+            if (is_pause === false){
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                const timeShow = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 
-            document.getElementById("status-text").innerHTML = (p[index] === "Working") ? `Working Time!` : `Resting Time :)`;
-            document.getElementById("timer").innerHTML = timeShow;
+                document.getElementById("status-text").innerHTML = (p[index] === "Working") ? `Working Time!` : `Resting Time :)`;
+                document.getElementById("timer").innerHTML = timeShow;
 
-            if (seconds % 30 === 0) {
-                document.getElementById("motivate-text").innerHTML = randomMotivateText(p[index]);
-            }
+                if (seconds % 30 === 0) {
+                    document.getElementById("motivate-text").innerHTML = randomMotivateText(p[index]);
+                }
 
-            timeLeft--;
-            if (timeLeft < 0) {
-                skip();
+                timeLeft--;
+                if (timeLeft < 0) {
+                    skip();
+                }
             }
         }
 
@@ -147,13 +162,56 @@ function skip() {
 
     document.getElementById("done-pomodoros").textContent = `Pomodoro Score: ${userCookie.donePomodoros}`;
 
+    is_pause = false;
     index++;
     clearInterval(countdown);
     timer(pomodoros, index);
+    
+    const buttonsDiv = document.getElementById("buttons-div");
+    const resumeButton = document.getElementById("resume-button");
+
+    const pauseButton = document.createElement("button");
+    pauseButton.id = 'pause-button';
+    pauseButton.textContent = "Pause";
+    pauseButton.addEventListener('click', pause);
+    
+    buttonsDiv.removeChild(resumeButton);
+    buttonsDiv.appendChild(pauseButton); 
+}
+function resume(){
+    const buttonsDiv = document.getElementById("buttons-div");
+    const resumeButton = document.getElementById("resume-button");
+
+    const pauseButton = document.createElement("button");
+    pauseButton.id = 'pause-button';
+    pauseButton.textContent = "Pause";
+    pauseButton.addEventListener('click', pause);
+    
+    buttonsDiv.removeChild(resumeButton);
+    buttonsDiv.appendChild(pauseButton); 
+    is_pause = false;
 }
 
+function pause(){
+    const resumeButton = document.createElement("button");
+    resumeButton.id = 'resume-button';
+    resumeButton.textContent = "Resume";
+    resumeButton.addEventListener('click', resume);
+    
+    
+    const buttonsDiv = document.getElementById("buttons-div");
+    const pauseButton = document.getElementById("pause-button");
+    
+    buttonsDiv.removeChild(pauseButton);
+    buttonsDiv.appendChild(resumeButton);
+    is_pause = true; 
+
+
+}
+
+
 function finishPomodoro() {
-    const mainDiv = document.getElementById("main-div");
+    const buttonsDiv = document.getElementById("buttons-div");
     const textDiv = document.getElementById("text-div");
     const skipButton = document.getElementById("skip-button");
     const statusImage = document.getElementById("pomodoro-img");
@@ -176,13 +234,14 @@ function finishPomodoro() {
         </div>
     `;
 
+    buttonsDiv.innerHTML = ``;
+    buttonsDiv.style.gridTemplateColumns = 'auto';
     const startButton = document.createElement("button");
     startButton.id = 'start-button';
     startButton.textContent = "Start";
     startButton.addEventListener('click', start);
 
-    mainDiv.removeChild(skipButton);
-    mainDiv.appendChild(startButton);
+    buttonsDiv.appendChild(startButton);
 
     document.getElementById("left-pomodoros").style.display = "none";
 
@@ -191,7 +250,6 @@ function finishPomodoro() {
 }
 
 // Initialization
-document.getElementById("time-pomodoro").value = 1;
-pomodoroTime = document.getElementById("time-pomodoro").value;
 userCookie = new CookieManager(document.cookie);
 document.getElementById("done-pomodoros").textContent = `Pomodoro Score: ${userCookie.donePomodoros}`;
+var is_pause = false;
